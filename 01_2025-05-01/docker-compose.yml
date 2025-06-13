@@ -1,0 +1,11 @@
+services:
+    murder-mystery-manager:
+        build: ./001_murder-mystery-manager_2025-05-01
+        ports:
+            - "5173:5173"
+        volumes:
+            - ./001_murder-mystery-manager_2025-05-01:/app
+            - /app/node_modules
+        working_dir: /app
+        environment:
+            - HOST=0.0.0.0
