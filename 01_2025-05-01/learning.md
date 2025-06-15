@@ -79,7 +79,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   "build": "vite build",
   "preview": "vite preview",
   "predeploy": "npm run build",
-  "deploy": "gh-pages -d dist -b gh-pages -r https://github.com/ユーザー名/my-repo.git -D app1"
+  "deploy": "gh-pages -d dist -b gh-pages -r https://github.com/ユーザー名/my-repo.git --dest app1"
 }
 ```
 
