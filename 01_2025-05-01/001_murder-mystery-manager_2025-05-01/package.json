@@ -8,8 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d dist -b gh-pages -r https://github.com/fuga296/100days_challenge.git -D 01_2025-05-01/001_murder-mystery-manager_2025-05-01"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist -b gh-pages -r https://github.com/fuga296/100days_challenge.git -D 01_2025-05-01/001_murder-mystery-manager_2025-05-01"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
