@@ -1,6 +1,6 @@
 import { Link, List, ListItem, ListItemText, ListItemIcon, Typography } from "@mui/material";
 import Header from "./components/Header";
-import { MURDER_MYSTERY_NAMES } from "../constants/names";
+// import { MURDER_MYSTERY_NAMES } from "../constants/names";
 
 function Home() {
   return (
@@ -10,7 +10,7 @@ function Home() {
         MM
       </Typography>
       <List component="nav">
-        {
+        {/* {
           MURDER_MYSTERY_NAMES.map((m, i) => (
             <ListItem>
               <ListItemIcon sx={{ minWidth: 24 }}>•</ListItemIcon>
@@ -21,7 +21,7 @@ function Home() {
               } />
             </ListItem>
           ))
-        }
+        } */}
       </List>
     </>
   )
