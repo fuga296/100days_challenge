@@ -3,6 +3,7 @@ import { keyframes } from '@emotion/react';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import NotInfo from "./NotInfo";
 import { checkerplateStyles } from "../../styles/baseStyles";
 
 const floatAnimation = keyframes`
@@ -13,7 +14,7 @@ const floatAnimation = keyframes`
 
 function Cover({ data }) {
 
-  const meta = data.meta;
+  const meta = data?.meta;
 
   const [isGlowing, setIsGlowing] = useState(false);
   const navigate = useNavigate();
@@ -21,9 +22,15 @@ function Cover({ data }) {
   const handleClick = () => {
     setIsGlowing(true);
     setTimeout(() => {
-      navigate(`/${meta.englishLabel}/synopsis`);
-    }, 1900);
+      navigate(meta?.englishLabel ? `/${meta?.englishLabel}/synopsis` : "/");
+    }, meta?.coverImg ? 1900 : 300);
   };
+
+  if (!meta) {
+    return (
+      <NotInfo />
+    )
+  }
 
   return (
     <Box sx={{
@@ -33,17 +40,29 @@ function Cover({ data }) {
       textAlign: "center",
       overflow: "hidden"
     }}>
-      <img src={meta.coverImg} alt="カバー画像（クリックして開始）" style={{
-        height: "100%",
-        userSelect: "none",
-        WebkitUserSelect: "none",
-        userDrag: "none",
-        WebkitUserDrag: "none",
-        filter: isGlowing ? "brightness(10)" : "brightness(1)",
-        boxShadow: isGlowing ? "0 0 500px 300px rgba(255, 255, 255, 1)" : "0 0 0px 0px rgba(255, 255, 255, 0)",
-        transition: 'filter 1.8s linear(0 5%, 1 100%), box-shadow 1.8s linear(0 5%, 1 100%)',
-      }}
-      onClick={handleClick}/>
+      {meta?.coverImg
+        ? <img src={meta?.coverImg} alt="カバー画像（クリックして開始）" style={{
+          height: "100%",
+          userSelect: "none",
+          WebkitUserSelect: "none",
+          userDrag: "none",
+          WebkitUserDrag: "none",
+          filter: isGlowing ? "brightness(10)" : "brightness(1)",
+          boxShadow: isGlowing ? "0 0 500px 300px rgba(255, 255, 255, 1)" : "0 0 0px 0px rgba(255, 255, 255, 0)",
+          transition: 'filter 1.8s linear(0 5%, 1 100%), box-shadow 1.8s linear(0 5%, 1 100%)',
+        }}
+        onClick={handleClick}/>
+        : <Box
+            sx={{
+              height: "100%",
+              width: "min(614px, 66%)",
+              backgroundColor: "gray",
+              mr: "auto",
+              ml: "auto"
+            }}
+            onClick={handleClick}
+          />
+      }
       {!isGlowing && <Typography variant="body1" component="p" sx={{
         position: "absolute",
         top: "75%",

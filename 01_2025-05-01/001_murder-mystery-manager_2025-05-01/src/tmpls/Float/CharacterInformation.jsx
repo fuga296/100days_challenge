@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import FloatingContainer from "../../components/pageStyles/FloatingContainer";
+import NotInfo from "./NotInfo";
 import generateDummyWord from "../../utils/generateWord";
 
 const sectionTitleStyle = {
@@ -20,17 +21,15 @@ const infoTextStyle = {
 function CharacterInfomation({ data }) {
 
   const characterID = useParams().id;
-  const character = data.characters.find((char) => char.id === characterID);
+  const character = data?.characters.find((char) => char.id === characterID);
 
-  const pages = data.meta.infoType;
+  const infoType = data?.meta?.infoType;
 
   const [currentPate, setCurrentPate] = useState(0);
 
-  if (!character) {
+  if (!character || !infoType) {
     return (
-      <FloatingContainer fillScreen>
-        <Typography color="error">キャラクターが見つかりませんでした。</Typography>
-      </FloatingContainer>
+      <NotInfo />
     );
   }
 
@@ -39,7 +38,7 @@ function CharacterInfomation({ data }) {
       <Button variant="text" onClick={() => {for (let i = 0; i < 10; i++) {console.log(generateDummyWord())}}}>ジェネレート</Button>
       <Box component="section" sx={{ mb: 10 }}>
         <Typography variant="h4" sx={sectionTitleStyle}>
-          「{character.transcribedName}」 の情報
+          「{character?.transcribedName ?? "未定義"}」 の情報
         </Typography>
       </Box>
 
@@ -51,7 +50,7 @@ function CharacterInfomation({ data }) {
             setCurrentPate(newValue);
           }}
         >
-          {pages.map((pageName, i) => (
+          {infoType.map((pageName, i) => (
             <BottomNavigationAction label={pageName} value={i} key={i} />
           ))}
         </BottomNavigation>
@@ -59,7 +58,7 @@ function CharacterInfomation({ data }) {
 
       <Box component="section" sx={{ mb: 15, paddingInline: '16vw' }}>
         <Typography variant="h4" sx={sectionTitleStyle}>
-          {pages[currentPate]}
+          {infoType[currentPate]}
         </Typography>
 
         {(() => {
@@ -68,11 +67,11 @@ function CharacterInfomation({ data }) {
               return (
                 character.information.past.map((section, i) => (
                   <Box component="section" key={i} sx={{ mb: 10 }}>
-                    <Typography variant="h4" sx={{...sectionTitleStyle, mb: 3}}>
-                      {section.title}
-                    </Typography>
+                    {section?.title && <Typography variant="h4" sx={{...sectionTitleStyle, mb: 3}}>
+                      {section?.title}
+                    </Typography>}
                     <Typography sx={{ ...infoTextStyle, whiteSpace: 'pre-line', lineHeight: 2.5 }}>
-                      {section.content}
+                      {section?.content ?? "記載なし"}
                     </Typography>
                   </Box>
                 ))
@@ -80,7 +79,7 @@ function CharacterInfomation({ data }) {
             case 1:
               return (
                 <Typography sx={{ ...infoTextStyle, lineHeight: 3 }}>
-                  {character.information.dayActions}
+                  {character?.information?.dayActions ?? "記載なし"}
                 </Typography>
               )
             case 2:

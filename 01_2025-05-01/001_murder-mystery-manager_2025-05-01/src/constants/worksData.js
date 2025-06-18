@@ -401,10 +401,38 @@ TOBは、詐欺・誘拐・殺人・強盗・人身売買・奴隷取引──
       englishLabel: "tower-of-babel",
       id: "a80qiu2quhzzaf2",
       GM: 0,
-      playerCount: 5,
+      playerCount: {
+        min: 5,
+        max: 5
+      },
       playTimeMinutes: "60-90",
       author: "fuga",
-      pages: ["Cover", "Synopsis", "CharacterSelect", "CharacterConfirmation", "CharacterInformation", "Ending"],
+      pageTypes: [
+        {
+          path: "",
+          propertyName: "Cover",
+        },
+        {
+          path: "synopsis",
+          propertyName: "Synopsis",
+        },
+        {
+          path: "character-select",
+          propertyName: "CharacterSelect",
+        },
+        {
+          path: "confirmation/:id",
+          propertyName: "CharacterConfirmation",
+        },
+        {
+          path: "character/:id",
+          propertyName: "CharacterInfomation",
+        },
+        {
+          path: "ending",
+          propertyName: "Ending",
+        },
+      ],
       infoType: [
         "私の事情",  // 過去、当日、勝利条件
         "保有情報",  // 持ち物、学習ノート、間取り、等

@@ -2,6 +2,7 @@ import { Box, Link, List, ListItem, ListItemIcon, ListItemText, Typography } fro
 import { Link as RouterLink, useParams } from "react-router-dom";
 
 import FloatingContainer from "../../components/pageStyles/FloatingContainer";
+import NotInfo from "./NotInfo";
 
 const sectionTitleStyles = {
   mb: 10,
@@ -17,13 +18,11 @@ const infoTextStyles = {
 function CharacterConfirmation({ data }) {
 
   const characterID = useParams().id;
-  const character = data.characters.find((char) => char.id === characterID);
+  const character = data?.characters.find((char) => char?.id === characterID);
 
   if (!character) {
     return (
-      <FloatingContainer fillScreen>
-        <Typography color="error">キャラクターが見つかりませんでした。</Typography>
-      </FloatingContainer>
+      <NotInfo />
     );
   }
 
@@ -31,7 +30,7 @@ function CharacterConfirmation({ data }) {
     <FloatingContainer>
       <Box component="section" sx={{ mb: 15 }}>
         <Typography variant="h3" sx={sectionTitleStyles}>
-          「{character.transcribedName}」 でよろしいですか？
+          「{character?.transcribedName ?? "未定義"}」 でよろしいですか？
         </Typography>
       </Box>
 
@@ -40,7 +39,7 @@ function CharacterConfirmation({ data }) {
           キャラクター設定には以下の情報が含まれています。
         </Typography>
         <List sx={{ ml: 3 }}>
-          {data.meta.infoType.map((ele, i) => (
+          {data?.meta?.infoType && data?.meta?.infoType.map((ele, i) => (
             <ListItem key={i}>
               <ListItemIcon sx={{ minWidth: 24 }}>•</ListItemIcon>
               <ListItemText primary={
@@ -56,7 +55,7 @@ function CharacterConfirmation({ data }) {
       </Box>
 
       <Box component="section" sx={{ textAlign: "right" }}>
-        <Link component={RouterLink} to={`/tower-of-babel/character/${characterID}`}>{character.transcribedName} の設定を確認</Link>
+        <Link component={RouterLink} to={`/tower-of-babel/character/${characterID}`}>{character?.transcribedName ?? "未定義"} の設定を確認</Link>
       </Box>
     </FloatingContainer>
   );

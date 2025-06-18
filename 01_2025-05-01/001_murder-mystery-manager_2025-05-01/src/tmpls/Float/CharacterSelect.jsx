@@ -3,15 +3,22 @@ import { useNavigate } from 'react-router-dom';
 
 import ButtonCard from '../../components/common/ButtonCard';
 import FloatingContainer from '../../components/pageStyles/FloatingContainer';
+import NotInfo from './NotInfo';
 import { textStyles, titleStyles } from '../../styles/baseStyles';
 
 function CharacterSelect({ data }) {
 
-  const meta = data.meta;
-  const characters = data.characters;
-  const coverImg = data.meta.coverImg;
+  const meta = data?.meta;
+  const characters = data?.characters;
+  const coverImg = meta?.coverImg;
 
   const navigate = useNavigate();
+
+  if (!meta || !characters || !coverImg) {
+    return (
+      <NotInfo />
+    )
+  }
 
   return (
     <FloatingContainer fillScreen>
@@ -26,14 +33,14 @@ function CharacterSelect({ data }) {
         }}
       >
         {characters.map((character) => (
-          character.isPlayer && <ButtonCard
-            coverImg={character.charImg}
-            title={<>{character.transcribedName} ({character.name})</>}
+          character?.isPlayer && <ButtonCard
+            coverImg={character?.charImg}
+            title={character?.transcribedName ? `${character?.transcribedName ?? "未定義"} (${character?.name ?? "未定義"})` : `${character?.name ?? "未定義"}`}
             titleStyles={titleStyles}
-            text={character.description}
+            text={character?.description ?? "記載なし"}
             textStyles={textStyles}
-            handleClick={() => navigate(`/${meta.englishLabel}/confirmation/${character.id}`)}
-            key={character.id}
+            handleClick={() => navigate(meta?.englishLabel && character.id ? `/${meta?.englishLabel}/confirmation/${character?.id}` : "/")}
+            key={character?.id}
           />
         ))}
         <ButtonCard
@@ -42,7 +49,7 @@ function CharacterSelect({ data }) {
           text="GM や傍観者はこちら"
           titleStyles={titleStyles}
           textStyles={textStyles}
-          handleClick={() => navigate(`/${meta.englishLabel}/confirmation/${meta.id}`)}
+          handleClick={() => navigate(meta?.englishLabel && meta?.id ? `/${meta?.englishLabel}/confirmation/${meta?.id}` : "/")}
           key={meta.id}
         />
       </Box>
