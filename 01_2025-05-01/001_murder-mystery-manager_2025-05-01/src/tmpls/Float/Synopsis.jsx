@@ -2,12 +2,15 @@ import { Box, Link, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 
 import FloatingContainer from "../../components/pageStyles/FloatingContainer";
+import usePageTitle from "../../hooks/usePageTitle";
 import NotInfo from "./NotInfo";
 import { textStyles, titleStyles } from "../../styles/baseStyles";
 
 function Synopsis({ data }) {
 
   const meta = data?.meta;
+
+  usePageTitle(`${meta?.title ?? ""} | あらすじ`);
 
   if (!meta) {
     return (

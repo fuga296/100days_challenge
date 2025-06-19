@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import FloatingContainer from "../../components/pageStyles/FloatingContainer";
 import NotInfo from "./NotInfo";
 import generateDummyWord from "../../utils/generateWord";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const sectionTitleStyle = {
   mb: 10,
@@ -22,6 +23,8 @@ function CharacterInfomation({ data }) {
 
   const characterID = useParams().id;
   const character = data?.characters.find((char) => char.id === characterID);
+
+  usePageTitle(`${data?.meta?.title ?? ""} | キャラ情報`);
 
   const infoType = data?.meta?.infoType;
 

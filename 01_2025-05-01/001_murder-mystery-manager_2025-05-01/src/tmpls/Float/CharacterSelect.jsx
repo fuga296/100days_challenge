@@ -5,12 +5,15 @@ import ButtonCard from '../../components/common/ButtonCard';
 import FloatingContainer from '../../components/pageStyles/FloatingContainer';
 import NotInfo from './NotInfo';
 import { textStyles, titleStyles } from '../../styles/baseStyles';
+import usePageTitle from '../../hooks/usePageTitle';
 
 function CharacterSelect({ data }) {
 
   const meta = data?.meta;
   const characters = data?.characters;
   const coverImg = meta?.coverImg;
+
+  usePageTitle(`${meta?.title ?? ""} | キャラ選択`);
 
   const navigate = useNavigate();
 

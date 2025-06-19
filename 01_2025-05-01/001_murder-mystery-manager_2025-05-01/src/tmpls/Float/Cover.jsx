@@ -3,6 +3,7 @@ import { keyframes } from '@emotion/react';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import usePageTitle from "../../hooks/usePageTitle";
 import NotInfo from "./NotInfo";
 import { checkerplateStyles } from "../../styles/baseStyles";
 
@@ -15,6 +16,8 @@ const floatAnimation = keyframes`
 function Cover({ data }) {
 
   const meta = data?.meta;
+
+  usePageTitle(`${meta?.title ?? ""} | カバー`);
 
   const [isGlowing, setIsGlowing] = useState(false);
   const navigate = useNavigate();

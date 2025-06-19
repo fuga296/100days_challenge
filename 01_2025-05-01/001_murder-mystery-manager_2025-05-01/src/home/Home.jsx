@@ -1,8 +1,13 @@
 import { Link, List, ListItem, ListItemText, ListItemIcon, Typography } from "@mui/material";
+
 import Header from "./components/Header";
 import { WORKS_DATA } from "../constants/worksData";
+import usePageTitle from "../hooks/usePageTitle";
 
 function Home() {
+
+  usePageTitle("murder mystery manager | ホーム");
+
   return (
     <>
       <Header />
@@ -12,7 +17,7 @@ function Home() {
       <List component="nav">
         {
           WORKS_DATA.map((m, i) => (
-            <ListItem>
+            <ListItem key={i}>
               <ListItemIcon sx={{ minWidth: 24 }}>•</ListItemIcon>
               <ListItemText primary={
                 <>

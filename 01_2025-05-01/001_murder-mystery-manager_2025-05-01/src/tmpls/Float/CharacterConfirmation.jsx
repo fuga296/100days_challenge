@@ -3,6 +3,7 @@ import { Link as RouterLink, useParams } from "react-router-dom";
 
 import FloatingContainer from "../../components/pageStyles/FloatingContainer";
 import NotInfo from "./NotInfo";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const sectionTitleStyles = {
   mb: 10,
@@ -19,6 +20,8 @@ function CharacterConfirmation({ data }) {
 
   const characterID = useParams().id;
   const character = data?.characters.find((char) => char?.id === characterID);
+
+  usePageTitle(`${data?.meta?.title ?? ""} | キャラ確認`);
 
   if (!character) {
     return (
